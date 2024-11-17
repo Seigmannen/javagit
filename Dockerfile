@@ -39,5 +39,8 @@ ENV PATH="$PATH:/usr/share/gradle/bin"
 # Set working directory
 WORKDIR /workspace
 
+# Ensure JAVA_HOME is available in SSH sessions
+RUN echo "JAVA_HOME=/usr/lib/jvm/temurin-21-jdk" >> /etc/environment
+
 # Start SSH service
 CMD ["/bin/bash", "-c", "echo root:${ROOT_PASSWORD} | chpasswd && /usr/sbin/sshd -D"]
