@@ -31,7 +31,7 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 # Set root password from environment variable
-ARG ROOT_PASSWORD
+ENV ROOT_PASSWORD=default_password
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 # Expose SSH port
