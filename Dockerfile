@@ -30,10 +30,6 @@ RUN mkdir /var/run/sshd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-# Set root password from environment variable
-ENV ROOT_PASSWORD=default_password
-RUN echo "root:${ROOT_PASSWORD}" | chpasswd
-
 # Expose SSH port
 EXPOSE 22
 
@@ -44,4 +40,4 @@ ENV PATH="$PATH:/usr/share/gradle/bin"
 WORKDIR /workspace
 
 # Start SSH service
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/bin/bash", "-c", "echo root:${ROOT_PASSWORD} | chpasswd && /usr/sbin/sshd -D"]
