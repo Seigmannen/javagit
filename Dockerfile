@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
-    JAVA_HOME=/usr/lib/jvm/temurin-21-jdk
+    JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 
 # Update and install dependencies (Java, Git, Gradle, OpenSSH)
 RUN apt-get update && apt-get install -y \
@@ -40,7 +40,7 @@ ENV PATH="$PATH:/usr/share/gradle/bin"
 WORKDIR /workspace
 
 # Ensure JAVA_HOME is available in SSH sessions
-RUN echo "JAVA_HOME=/usr/lib/jvm/temurin-21-jdk" >> /etc/environment
+RUN echo "JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64" >> /etc/environment
 
 # Start SSH service
 CMD ["/bin/bash", "-c", "echo root:${ROOT_PASSWORD} | chpasswd && /usr/sbin/sshd -D"]
